@@ -22,7 +22,7 @@ import java.util.Optional;
 public abstract class SimpleLineMarkerProvider<F extends PsiElement, T> extends MarkerProviderAdaptor {
 
     @Override
-    public void collectSlowLineMarkers(@NotNull List<? extends PsiElement> elements, @NotNull Collection<? super LineMarkerInfo<?>> result) {
+    public void collectSlowLineMarkers(@NotNull List<PsiElement> elements, @NotNull Collection<LineMarkerInfo> result) {
     }
 
     @SuppressWarnings("unchecked")
@@ -36,7 +36,6 @@ public abstract class SimpleLineMarkerProvider<F extends PsiElement, T> extends 
                 (F) element,
                 element.getTextRange(),
                 getIcon(),
-                Pass.UPDATE_ALL,
                 getTooltipProvider(processResult.get()),
                 getNavigationHandler(processResult.get()),
                 GutterIconRenderer.Alignment.CENTER

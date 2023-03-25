@@ -1,17 +1,17 @@
 buildscript {
     repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
         mavenLocal()
         mavenCentral()
     }
-
 }
+
 plugins {
-    id "org.jetbrains.intellij" version "0.4.15"
+    id 'org.jetbrains.intellij' version '1.2.1'
 }
 
 group = 'cn.wuzhizhan.idea.mybatis'
-version = '2020.12.09'
+version = '2021.12.09'
 
 apply plugin: 'java'
 sourceCompatibility = 1.8
@@ -21,41 +21,25 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'lib', includes: ['*jar'])
-    compile group: 'com.softwareloop', name: 'mybatis-generator-lombok-plugin', version: '1.0'
-    compile group: 'uk.com.robust-it', name: 'cloning', version: '1.9.2'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+
 buildPlugin {
     buildSearchableOptions.enabled = false
 }
+
 intellij {
-    version "2020.2.4"
-    type "IU"
+    version = "IC-2019.1"
     pluginName = 'free-mybatis-plugin'
-    plugins = ['coverage', 'Spring', 'DatabaseTools', 'java']
-    intellij.updateSinceUntilBuild false
-}
-patchPluginXml {
-    changeNotes """
-    <h4>2020.12.09</h4>
-        <ul>
-            <li>修改过期的方法</li>
-            <li>修正笔误</li>
-        </ul>
-    <h4>2020.12.08</h4>
-        <ul>
-            <li>修复新版API不兼容问题</li>
-        </ul>
-    <h4>2019.12.18</h4>
-      <ul>
-        <li>feature:移除jdbc依赖,不用再次输入密码</li>
-        <li>bugfix:修复返回类型检测错误</li>
-        <li>bugfix:mybatis generator修复oracle错误</li>
-        <li>bugfix:mybatis generator修复postgres数据库</li>
-        <li>bugfix:mybatis generator修复xml mapper重复创建</li>
-      </ul>
-     """
+    sameSinceUntilBuild = false
+    patchPluginXml {
+        untilBuild = "299.*"
+        changeNotes = """
+            <ul>
+            <li>Fix deprecated api alert</li>
+            </ul>
+         """
+    }
 }
 
 tasks.withType(JavaCompile) {
